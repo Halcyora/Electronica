@@ -1,0 +1,74 @@
+version: '3.8'
+
+services:
+  # FastAPI replay service + inference gateway
+  replay-service:
+    build:
+      context: .
+      dockerfile: Dockerfile.replay
+    container_name: fractal-pulse-replay
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data/raw:/app/data/raw
+      - ./models:/app/models
+      - ./ml:/app/ml
+      - ./replay_service:/app/replay_service
+    environment:
+      - PYTHONUNBUFFERED=1
+    command: uvicorn replay_service.main:app --host 0.0.0.0 --port 8000 --reload
+    depends_on:
+      - db
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 3
+
+  # SQLite database for event logging
+  db:
+    image: public.ecr.aws/docker/library/sqlite:latest
+    container_name: fractal-pulse-db
+    volumes:
+      - ./data/db:/data
+    command: sh -c "sqlite3 /data/events.db 'CREATE TABLE IF NOT EXISTS events (id INTEGER PRIMARY KEY, timestamp DATETIME, event_type TEXT, confidence REAL, raw_data TEXT);'"
+
+  # React dashboard
+  dashboard:
+    build:
+      context: ./dashboard
+      dockerfile: Dockerfile
+    container_name: fractal-pulse-dashboard
+    ports:
+      - "3000:3000"
+    environment:
+      - VITE_API_BASE=http://localhost:8000
+      - VITE_WS_BASE=ws://localhost:8000
+    depends_on:
+      - replay-service
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  # Optional: ESP32 firmware in QEMU (advanced/stretch goal)
+  # Uncomment to enable if QEMU setup is completed
+  # esp32-emulator:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile.esp32
+  #   container_name: fractal-pulse-esp32
+  #   volumes:
+  #     - ./firmware:/workspace/firmware
+  #   environment:
+  #     - QEMU_SYSTEM_XTENSA=1
+
+volumes:
+  db-data:
+    driver: local
+
+networks:
+  default:
+    name: fractal-pulse-net
+    driver: bridge

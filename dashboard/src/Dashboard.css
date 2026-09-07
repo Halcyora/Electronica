@@ -1,0 +1,366 @@
+/* FractalPulse Dashboard Styles */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #333;
+  min-height: 100vh;
+}
+
+.dashboard {
+  min-height: 100vh;
+  background: #fafafa;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.header p {
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+/* Container */
+.container {
+  flex: 1;
+  max-width: 1400px;
+  margin: 2rem auto;
+  width: 100%;
+  padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Panel Base */
+.panel {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.panel:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
+}
+
+.panel h2 {
+  color: #667eea;
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #667eea;
+  padding-bottom: 0.5rem;
+}
+
+/* Control Panel */
+.control-panel {
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.control-panel label {
+  display: block;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.control-panel select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid #667eea;
+  border-radius: 8px;
+  font-size: 1rem;
+  margin-top: 0.5rem;
+  cursor: pointer;
+  transition: border-color 0.3s;
+}
+
+.control-panel select:focus {
+  outline: none;
+  border-color: #764ba2;
+}
+
+.button-group {
+  display: flex;
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.button-group button {
+  flex: 1;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.button-group button:hover:not(:disabled) {
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+  transform: translateY(-2px);
+}
+
+.button-group button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Waveform Panel */
+.waveform-panel {
+  min-height: 400px;
+}
+
+.waveform-canvas {
+  width: 100%;
+  height: 300px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  background: white;
+  display: block;
+}
+
+/* Two Column Layout */
+.two-column {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+/* Features Panel */
+.features-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.features-list div {
+  padding: 0.75rem;
+  background: #f9f9f9;
+  border-left: 4px solid #667eea;
+  border-radius: 4px;
+  font-size: 0.95rem;
+}
+
+.features-list strong {
+  color: #667eea;
+  font-weight: 600;
+}
+
+/* Classification Panel */
+.classification-result {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+.class-box {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 2rem 3rem;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  min-width: 200px;
+}
+
+.class-name {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.confidence {
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+.scores {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  font-size: 0.95rem;
+}
+
+.scores div {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem;
+  background: #f0f0f0;
+  border-radius: 4px;
+}
+
+/* Alerts Panel */
+.alerts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.alert {
+  padding: 1rem;
+  border-left: 4px solid;
+  border-radius: 4px;
+  background: #f9f9f9;
+  font-size: 0.95rem;
+}
+
+.alert-high {
+  border-left-color: #f56565;
+  background: #fff5f5;
+}
+
+.alert-high strong {
+  color: #f56565;
+}
+
+.alert-medium {
+  border-left-color: #ed8936;
+  background: #fffaf0;
+}
+
+.alert-medium strong {
+  color: #ed8936;
+}
+
+.alert-low {
+  border-left-color: #48bb78;
+  background: #f0fff4;
+}
+
+.alert-low strong {
+  color: #48bb78;
+}
+
+.alert small {
+  display: block;
+  margin-top: 0.5rem;
+  color: #999;
+}
+
+/* Event Log Panel */
+.eventlog-list {
+  max-height: 300px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.event-entry {
+  display: flex;
+  gap: 1rem;
+  padding: 0.75rem;
+  background: #f9f9f9;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  border-left: 3px solid #667eea;
+}
+
+.event-time {
+  font-weight: 600;
+  color: #667eea;
+  white-space: nowrap;
+  min-width: 120px;
+}
+
+.event-text {
+  color: #333;
+  flex: 1;
+}
+
+/* Footer */
+.footer {
+  background: #333;
+  color: white;
+  text-align: center;
+  padding: 1.5rem;
+  margin-top: 2rem;
+  font-size: 0.9rem;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .two-column {
+    grid-template-columns: 1fr;
+  }
+
+  .header h1 {
+    font-size: 2rem;
+  }
+
+  .container {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .header h1 {
+    font-size: 1.5rem;
+  }
+
+  .header p {
+    font-size: 0.95rem;
+  }
+
+  .button-group {
+    flex-direction: column;
+  }
+
+  .panel {
+    padding: 1rem;
+  }
+
+  .class-box {
+    padding: 1.5rem 2rem;
+  }
+
+  .waveform-canvas {
+    height: 200px;
+  }
+}
+
+/* Scrollbar styling */
+.eventlog-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.eventlog-list::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.eventlog-list::-webkit-scrollbar-thumb {
+  background: #667eea;
+  border-radius: 3px;
+}
+
+.eventlog-list::-webkit-scrollbar-thumb:hover {
+  background: #764ba2;
+}
