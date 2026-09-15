@@ -227,7 +227,9 @@ void app_main(void) {
     while (1) {
         // TODO: Read ADC from ECG sensor
         // For now, simulate with synthetic data
-        ecg_buffer[ecg_buffer_pos++] = sinf(2 * 3.14159f * ecg_buffer_pos / 250.0f);
+        int idx = ecg_buffer_pos;
+        ecg_buffer[idx] = sinf(2.0f * 3.14159f * idx / 250.0f);
+        ecg_buffer_pos = idx + 1;
         
         // When buffer is full, run feature extraction + inference
         if (ecg_buffer_pos >= FEATURE_WINDOW_SIZE) {
