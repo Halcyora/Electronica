@@ -1,8 +1,3 @@
-# Data files (large, downloaded separately)
-data/raw/
-data/features/
-data/db/
-
 # Python
 __pycache__/
 *.py[cod]
