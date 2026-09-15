@@ -214,6 +214,7 @@ def export_model_to_c(tflite_model_bytes: bytes, output_file: str = "firmware/ma
 // Generated for embedded deployment
 
 #include <stdint.h>
+#include <stddef.h>
 
 const uint8_t g_fractal_pulse_model_data[] = {{
     {model_hex}

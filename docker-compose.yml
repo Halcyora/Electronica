@@ -51,16 +51,17 @@ services:
       retries: 3
 
   # Optional: ESP32 firmware in QEMU (advanced/stretch goal)
-  # Uncomment to enable if QEMU setup is completed
-  # esp32-emulator:
-  #   build:
-  #     context: .
-  #     dockerfile: Dockerfile.esp32
-  #   container_name: fractal-pulse-esp32
-  #   volumes:
-  #     - ./firmware:/workspace/firmware
-  #   environment:
-  #     - QEMU_SYSTEM_XTENSA=1
+  esp32-emulator:
+    build:
+      context: .
+      dockerfile: Dockerfile.esp32
+    container_name: fractal-pulse-esp32
+    volumes:
+      - ./firmware:/workspace/firmware
+    environment:
+      - QEMU_SYSTEM_XTENSA=1
+    tty: true
+    stdin_open: true
 
 volumes:
   db-data:

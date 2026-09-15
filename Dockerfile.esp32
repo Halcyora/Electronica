@@ -1,0 +1,16 @@
+# Dockerfile for FractalPulse ESP32 firmware build + QEMU emulation
+FROM espressif/idf:v5.3
+
+ENV IDF_TARGET=esp32
+
+# Install the QEMU xtensa emulator bundled with ESP-IDF tooling
+RUN . $IDF_PATH/export.sh && python $IDF_PATH/tools/idf_tools.py install qemu-xtensa
+
+WORKDIR /workspace/firmware
+COPY firmware/ /workspace/firmware/
+
+# Pull the TFLite Micro component and do an initial build (cached layer)
+RUN . $IDF_PATH/export.sh && idf.py set-target esp32 && idf.py build
+
+# Rebuild (picks up any bind-mounted source changes) then run under QEMU, printing serial output
+CMD ["/bin/bash", "-c", ". $IDF_PATH/export.sh && idf.py build && idf.py qemu monitor"]
