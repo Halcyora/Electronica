@@ -12,7 +12,6 @@ neurokit2==0.2.2
 
 # Deep learning and TFLite
 tensorflow==2.14.0
-tensorflow-lite-runtime==2.14.0
 
 # Web services and APIs
 fastapi==0.104.1

@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   # FastAPI replay service + inference gateway
   replay-service:
@@ -27,11 +25,11 @@ services:
 
   # SQLite database for event logging
   db:
-    image: public.ecr.aws/docker/library/sqlite:latest
+    image: alpine:latest
     container_name: fractal-pulse-db
     volumes:
       - ./data/db:/data
-    command: sh -c "sqlite3 /data/events.db 'CREATE TABLE IF NOT EXISTS events (id INTEGER PRIMARY KEY, timestamp DATETIME, event_type TEXT, confidence REAL, raw_data TEXT);'"
+    command: sh -c "apk add --no-cache sqlite && sqlite3 /data/events.db 'CREATE TABLE IF NOT EXISTS events (id INTEGER PRIMARY KEY, timestamp DATETIME, event_type TEXT, confidence REAL, raw_data TEXT);'"
 
   # React dashboard
   dashboard:

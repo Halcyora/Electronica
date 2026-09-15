@@ -6,11 +6,12 @@ FROM node:20-slim AS builder
 WORKDIR /app
 
 COPY package*.json ./
-RUN npm ci
+RUN npm install
 
 COPY public/ ./public/
 COPY src/ ./src/
-COPY vite.config.js index.html ./
+COPY vite.config.js ./
+COPY public/index.html ./index.html
 
 RUN npm run build
 
